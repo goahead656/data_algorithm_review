@@ -109,7 +109,7 @@ return表示函数的结束，一般来说主方法中最后都是需要`return 
 
 时空复杂度：
 
-- 时间复杂度：一般直接看程序的执行次数就可以，找到最关键的语句，统计执行次数，内外循环如果没有明确标明的话，直接把按照循环n次处理，具体的话，可以看你们的PPT，你们老师写的还是挺详细的（好吧，我承认是我偷懒啦，突然有点事情，所以这部分省略了些），时间复杂度只需要关注执行次数最多的那个就可以，执行次数少的可以略作忽略。
+- 时间复杂度：一般直接看程序的执行次数就可以，找到最关键的语句，统计执行次数，内外循环如果没有明确标明的话，直接把按照循环n次处理（好吧，我承认是我偷懒啦，突然有点事情，所以这部分省略了些），时间复杂度只需要关注执行次数最多的那个就可以，执行次数少的可以略作忽略。如果对这部分有疑问的，可以直接私信发我邮箱shuow43@gmail.com
 - 空间复杂度：一般来说，直接数组开的大小，在数据操作的过程中会不会重新申请新的空间以及申请了多少空间。
 
 ## 开始入门数据结构
@@ -184,11 +184,7 @@ int main()
 }
 ```
 
-
-
-![image-20231218195154414](D:\study\数据结构\image-20231218195154414.png)
-
-
+![image-20231218195154414](D:\study\数据结构\data_algorithm_review\imgs\image-20231218195154414.png)
 
 ```C++
 #include <iostream>
@@ -243,5 +239,187 @@ int main()
 
 ### 指针
 
-指针的用法颇为复杂，一般考试也不会对指针进行过多的考察
+指针的用法颇为复杂，一般不会特意对于指针进行考察，会对指针表示的地址进行考察，比较恶心的会考察`**variable`，如过在考场上看到这种的，你可以`***`了，一般在工程中是不会这样使用的，如果你发现这样用的，那么你就可以`***`作者的领导了。
+
+下面来看指针的定义：指针指向存放变量的值的地址。因此我们可以通过指针来修改变量的值。
+
+```C++
+// * 是取指针
+//p存储的就是a的地址
+int *p=&a;
+// 修改a的值要首先拿到a的地址,使用*获取
+*p +=5;    //这条语句等同于a=a+5
+```
+
+数组名也是一种特殊的指针，指针可以做运算，通过对地址进行计算，来实现定点爆破某些数值
+
+```C++
+// & 是取引用
+int a[5]={1,2,3,4,5};
+
+for(int i=0;i<5;i++){
+    cout<<*(a+i)<<endl;
+}
+//这里数组里面a+i相当于a+n*sizeof(*a)
+```
+
+引用和指针类似，相当于给变量起了个别名
+
+```C++
+int a=10;
+int &p=a;
+
+p +=5;
+//输出a的数值，对a的数值进行查询
+cout<<a<<endl;
+```
+
+在指针这里有个需要和`java`区分开来的，这个关键字就是new，在`C++`中new是用于在堆内存中动态分配内存空间，创建对象或数组。这部分申请的空间是需要手动释放的。一般来说，`C++`中实例化对象一般是直接写出对象的类就可以，即`Type a=Type()`
+
+
+
+## 结构体
+
+结构体默认是`public`，结构体可以只有属性，没有方法，结构体是`C++`独有的，`java`只有类
+
+```C++
+struct Dog
+{
+    //定义私有属性
+    private:
+      int age,height;
+      double bone;
+      string childern[100];
+    //定义公有的一些属性和方法
+    public:
+      string name;
+      
+      void say()
+      {
+          cout<<"I'm"<<name<<"Dog"<<endl;
+      }
+      
+      int set_age(int a)
+      {
+          age=a;
+      }
+      
+      int get_age()
+      {
+          return age;
+      }
+      
+      void add_money(double x)
+      {
+          money+=x;
+      }
+}dog_a,dog_b,dogs[100]
+```
+
+
+
+## 类
+
+类属于面向对象的内容啦，使用的情况和`java`这种面向对象语言类似。
+
+```C++
+class Dog
+{
+    //定义私有属性
+    private:
+      int age,height;
+      double bone;
+      string childern[100];
+    //定义公有的一些属性和方法
+    public:
+      string name;
+      
+      void say()
+      {
+          cout<<"I'm"<<name<<"Dog"<<endl;
+      }
+      
+      int set_age(int a)
+      {
+          age=a;
+      }
+      
+      int get_age()
+      {
+          return age;
+      }
+      
+      void add_bone(double x)
+      {
+          bone+=x;
+      }
+}
+```
+
+类中的变量和函数被统一称为类的成员变量。`private`后面的内容是私有成员变量，`public`后面的内容是公有成员变量，在类的外部可以直接访问。
+
+类的使用：
+
+```C++
+#include <iostream>
+
+using namespace std;
+
+const int N = 1000010;
+
+class Dog
+{
+    //定义私有属性
+    private:
+      int age,height;
+      double bone;
+      string childern[100];
+    //定义公有的一些属性和方法
+    public:
+      string name;
+      
+      void say()
+      {
+          cout<<"I'm"<<name<<"Dog"<<endl;
+      }
+      
+      int set_age(int a)
+      {
+          age=a;
+      }
+      
+      int get_age()
+      {
+          return age;
+      }
+      
+      void add_bone(double x)
+      {
+          bone+=x;
+      }
+}dog_a,dog_b,dogs[100];
+
+int main()
+{
+    Dog d;
+
+    d.name = "yxc";   
+    //如果需要访问age属性，需要使用set和get方法
+    d.set_age(18);       
+    d.add_bone(100);
+
+    d.say();
+    cout << d.get_age() << endl;
+
+    return 0;
+}
+```
+
+
+
+
+
+
+
+
 
